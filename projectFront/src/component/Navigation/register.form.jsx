@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import TagsInput from "react-tagsinput";
 import MyComponent from "./Pract";
 import "react-tagsinput/react-tagsinput.css";
@@ -22,6 +23,7 @@ const options = [
 class SignUp extends Component {
   constructor(props) {
     super(props);
+    this.state = { apiResponse: "" };
     this.state = {
       file: null,
       // value: { min: 2, max: 20 }
@@ -38,11 +40,13 @@ class SignUp extends Component {
       subscribe: true,
       options: ""
     };
+
     console.log(this.state);
     this.uploadSingleFile = this.uploadSingleFile.bind(this);
     this.upload = this.upload.bind(this);
     this.validator = new SimpleReactValidator({ autoForceUpdate: this });
   }
+
   setFile = e => this.setState({ file: e.target.value });
   setFirstName = e => this.setState({ FirstName: e.target.value });
   setLastName = e => this.setState({ LastName: e.target.value });
@@ -79,26 +83,49 @@ class SignUp extends Component {
     });
   };
 
-  handleFormSubmit = e => {
+  handleFormSubmit = async e => {
     console.log(e.target.value);
     e.preventDefault();
 
     if (this.validator.allValid()) {
       let data = {
-        file: this.state.file,
-        FirstName: this.state.FirstName,
-        LastName: this.state.LastName,
-        Email: this.state.Email,
-        age: this.state.age,
-        State: this.state.stateA,
-        tags: this.state.tags,
-
-        address: this.state.address,
-        subscribe: this.state.subscribe
+        // file: this.state.file,
+        // FirstName: this.state.FirstName,
+        // LastName: this.state.LastName,
+        // Email: this.state.Email,
+        // age: this.state.age,
+        // State: this.state.stateA,
+        // tags: this.state.tags,
+        // address: this.state.address,
+        // subscribe: this.state.subscribe
         // options: this.state.options
       };
       // this.props.UserRegister(data);
+      // this.callAPI(data);
+      let res = await axios.post(
+        "http://localhost:4600/api/register",
+        {
+          FirstName: this.state.FirstName,
+          LastName: this.state.LastName,
+          Email: this.state.Email,
+          age: this.state.age,
+          State: this.state.stateA,
+          tags: this.state.tags,
 
+          address: this.state.address,
+          subscribe: this.state.subscribe
+        },
+
+        JSON.stringify(data),
+        // @ts-ignore
+        {
+          headers: {
+            "Content-Type":
+              "multipart/form-data; boundary=--------------------------178592083580993132863015"
+          }
+        }
+      );
+      console.log(res);
       console.log(data);
     } else {
       this.validator.showMessages();

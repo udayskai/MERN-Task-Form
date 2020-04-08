@@ -3,9 +3,10 @@ let express = require("express");
 let app = express();
 let port = process.env.port || 4600;
 let register = require("./routes/registerAPI");
+let cors = require("cors");
 
 app.use(express.json());
-
+app.use(cors());
 //connection
 mongoose
   .connect("mongodb://localhost/task", {
