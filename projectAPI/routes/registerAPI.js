@@ -10,7 +10,8 @@ router.post("/register", async (req, res) => {
     age: req.body.age,
     State: req.body.State,
     address: req.body.address,
-    subscribe: req.body.subscribe
+    subscribe: req.body.subscribe,
+    tagsArray: [req.body.tagsArray]
   });
 
   let data = await newRegister.save();

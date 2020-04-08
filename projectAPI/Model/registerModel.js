@@ -7,7 +7,8 @@ let registerSchema = new mongoose.Schema({
   age: { type: Number },
   State: { type: String },
   address: { type: String },
-  subscribe: { type: Boolean }
+  subscribe: { type: Boolean },
+  tagsArray: []
 });
 let regsiterModel = mongoose.model("register", registerSchema);
 

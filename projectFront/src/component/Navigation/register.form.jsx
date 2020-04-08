@@ -29,7 +29,8 @@ class SignUp extends Component {
       // value: { min: 2, max: 20 }
       value: "",
       // value: { min: 2, max: 10 },
-      tags: [],
+      // tags: [],
+      tagsArray: [],
       FirstName: "",
       LastName: "",
       Email: "",
@@ -62,19 +63,41 @@ class SignUp extends Component {
   };
 
   ///Input tags
-  removeTag = i => {
-    const newTags = [...this.state.tags];
-    newTags.splice(i, 1);
-    this.setState({ tags: newTags });
-    console.log(this.state.tags);
+  // removeTag = i => {
+  //   const newTags = [...this.state.tags];
+  //   newTags.splice(i, 1);
+  //   this.setState({ tags: newTags });
+  //   console.log(this.state.tags);
+  // };
+
+  // addTag = e => {
+  //   let val = e.target.value;
+  //   console.log(val);
+  //   if (e.key === "Enter" && val) {
+  //     return this.setState({ tags: [...this.state.tags, val] });
+  //   }
+  // };
+
+  handletagmethod = data => {
+    console.log(data, this.state.tagsArray);
+    let newArray = this.state.tagsArray.filter(item => item !== data);
+    this.setState({ tagsArray: newArray });
+    console.log(newArray);
+  };
+  // task add in array
+  addinarray = () => {
+    this.setState({ tagsArray: [...this.state.tagsArray, this.state.tags] });
+    this.setState({ tags: "" });
+    console.log(this.state.tagsArray);
   };
 
-  addTag = e => {
-    let val = e.target.value;
-    console.log(val);
-    if (e.key === "Enter" && val) {
-      return this.setState({ tags: [...this.state.tags, val] });
-    }
+  // on Change
+  onchangemethod = e => {
+    let myRange = document.getElementById("myRange");
+    let myOwnSpan = document.getElementById("myOwnSpan");
+    // console.log(myRange.value, myOwnSpan.style.left);
+    // myOwnSpan.style.left = `${myRange.value - 1}%`;
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleChange = e => {
@@ -110,7 +133,7 @@ class SignUp extends Component {
           Email: this.state.Email,
           age: this.state.age,
           State: this.state.stateA,
-          tags: this.state.tags,
+          tagsArray: this.state.tagsArray,
 
           address: this.state.address,
           subscribe: this.state.subscribe
@@ -278,6 +301,42 @@ class SignUp extends Component {
 
               <input
                 type="text"
+                className="col-lg-8 form-control"
+                name="tags"
+                placeholder="tags"
+                value={this.state.tags}
+                onChange={this.onchangemethod}
+              />
+
+              <button
+                className="float-right"
+                type="button"
+                onClick={this.addinarray}
+              >
+                {" "}
+                Add
+              </button>
+              <section>
+                {this.state.tagsArray.map((data, index) => (
+                  <React.Fragment>
+                    <button
+                      type="button"
+                      className="btn btn-success btn-sm mr-1"
+                      key={data + index}
+                      onClick={() => {
+                        this.handletagmethod(data);
+                      }}
+                    >
+                      {data}
+                      <i className="fa fa-close"></i>
+                    </button>
+                    {/* <li>{data}</li> */}
+                  </React.Fragment>
+                ))}
+              </section>
+
+              {/* <input
+                type="text"
                 placeholder="Tags"
                 className="form-control"
                 onKeyDown={this.addTag}
@@ -295,7 +354,7 @@ class SignUp extends Component {
                     </button>
                   </li>
                 ))
-              )}
+              )} */}
             </div>
             <br />
 
