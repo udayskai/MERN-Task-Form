@@ -318,7 +318,7 @@ class SignUp extends Component {
               </button>
               <section>
                 {this.state.tagsArray.map((data, index) => (
-                  <React.Fragment>
+                  <React.Fragment key={index}>
                     <button
                       type="button"
                       className="btn btn-success btn-sm mr-1"
