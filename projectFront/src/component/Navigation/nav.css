@@ -1,0 +1,80 @@
+.main {
+  height: 500px;
+
+  /* background-color: aquamarine; */
+  background-image: url("https://images.unsplash.com/photo-1556565681-67b9cd907d20?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80");
+}
+.link {
+  color: white;
+}
+.menu {
+  margin-left: 100px;
+  /* float: left;
+  padding-left: "50px"; */
+}
+.logo {
+  align-content: center;
+}
+@media screen and (min-width: 1200px) {
+  .logo {
+    margin-left: 100px;
+  }
+  .sect {
+    color: white;
+    padding-left: 250px;
+    padding-top: 150px;
+  }
+  .a {
+    /* padding-right: 100px;
+    padding-left: 10px; */
+    width: 500px;
+  }
+  .reg {
+    margin-left: 450px;
+  }
+  .search-button {
+    margin-left: 60px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .logo {
+    margin-left: 100px;
+  }
+  .sect {
+    color: white;
+    padding-left: 100px;
+    padding-top: 150px;
+  }
+  .ma {
+    width: 50px;
+  }
+  .search-buttonM {
+    margin-top: 25px;
+    margin-left: 160px;
+  }
+  .regM {
+    margin-left: 210px;
+  }
+}
+/* .search {
+  padding-right: 100px;
+  padding-left: 10px;
+} */
+
+/* .sect {
+  color: white;
+  padding-left: 450px;
+  padding-top: 150px;
+} */
+
+/* @media screen and (max-width: 768px) {
+
+  .logo {
+    margin-left: 100px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .logo {
+    font-size: 150px;
+  }
+} */
