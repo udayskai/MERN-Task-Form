@@ -67,6 +67,7 @@ class SignUp extends Component {
 
   addTag = e => {
     let val = e.target.value;
+    console.log(val);
     if (e.key === "Enter" && val) {
       return this.setState({ tags: [...this.state.tags, val] });
     }
@@ -254,12 +255,14 @@ class SignUp extends Component {
                 className="form-control"
                 onKeyDown={this.addTag}
               />
+
               {this.state.tags.length === 0 ? (
                 <React.Fragment />
               ) : (
                 this.state.tags.map((item, i) => (
                   <li>
                     {item}
+                    {i}
                     <button onClick={() => this.removeTag(i)}>
                       Remove Tag
                     </button>
