@@ -56,11 +56,28 @@ class SignUp extends Component {
     console.log(e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  ///Input tags
+  removeTag = i => {
+    const newTags = [...this.state.tags];
+    newTags.splice(i, 1);
+    this.setState({ tags: newTags });
+    console.log(this.state.tags);
+  };
+
+  addTag = e => {
+    let val = e.target.value;
+    if (e.key === "Enter" && val) {
+      return this.setState({ tags: [...this.state.tags, val] });
+    }
+  };
+
   handleChange = e => {
     this.setState({
       stateA: e.target.value
     });
   };
+
   handleFormSubmit = e => {
     console.log(e.target.value);
     e.preventDefault();
@@ -73,10 +90,11 @@ class SignUp extends Component {
         Email: this.state.Email,
         age: this.state.age,
         State: this.state.stateA,
+        tags: this.state.tags,
 
         address: this.state.address,
-        subscribe: this.state.subscribe,
-        options: this.state.options
+        subscribe: this.state.subscribe
+        // options: this.state.options
       };
       // this.props.UserRegister(data);
 
@@ -225,10 +243,29 @@ class SignUp extends Component {
             </div>
             <br />
             <div className="col-md-12">
-              <TagsInput
+              {/* <TagsInput
                 value={this.state.tags}
                 onChange={() => this.handleChange(this.state.tags)}
+              /> */}
+
+              <input
+                type="text"
+                placeholder="Tags"
+                className="form-control"
+                onKeyDown={this.addTag}
               />
+              {this.state.tags.length === 0 ? (
+                <React.Fragment />
+              ) : (
+                this.state.tags.map((item, i) => (
+                  <li>
+                    {item}
+                    <button onClick={() => this.removeTag(i)}>
+                      Remove Tag
+                    </button>
+                  </li>
+                ))
+              )}
             </div>
             <br />
 
