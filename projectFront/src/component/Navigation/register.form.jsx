@@ -48,7 +48,7 @@ class SignUp extends Component {
     this.validator = new SimpleReactValidator({ autoForceUpdate: this });
   }
 
-  setFile = e => this.setState({ file: e.target.value });
+  setFile = e => this.setState({ file: e.target.files[0] });
   setFirstName = e => this.setState({ FirstName: e.target.value });
   setLastName = e => this.setState({ LastName: e.target.value });
 
@@ -78,28 +78,6 @@ class SignUp extends Component {
   //   }
   // };
 
-  handletagmethod = data => {
-    console.log(data, this.state.tagsArray);
-    let newArray = this.state.tagsArray.filter(item => item !== data);
-    this.setState({ tagsArray: newArray });
-    console.log(newArray);
-  };
-  // task add in array
-  addinarray = () => {
-    this.setState({ tagsArray: [...this.state.tagsArray, this.state.tags] });
-    this.setState({ tags: "" });
-    console.log(this.state.tagsArray);
-  };
-
-  // on Change
-  onchangemethod = e => {
-    let myRange = document.getElementById("myRange");
-    let myOwnSpan = document.getElementById("myOwnSpan");
-    // console.log(myRange.value, myOwnSpan.style.left);
-    // myOwnSpan.style.left = `${myRange.value - 1}%`;
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
   handleChange = e => {
     this.setState({
       stateA: e.target.value
@@ -110,21 +88,16 @@ class SignUp extends Component {
     console.log(e.target.value);
     e.preventDefault();
 
+    // const formData = new FormData();
+    // formData.append("image", this.state.file);
+
     if (this.validator.allValid()) {
-      let data = {
-        // file: this.state.file,
-        // FirstName: this.state.FirstName,
-        // LastName: this.state.LastName,
-        // Email: this.state.Email,
-        // age: this.state.age,
-        // State: this.state.stateA,
-        // tags: this.state.tags,
-        // address: this.state.address,
-        // subscribe: this.state.subscribe
-        // options: this.state.options
-      };
-      // this.props.UserRegister(data);
-      // this.callAPI(data);
+      let data = {};
+
+      let file = this.state.file;
+      let formdata = new FormData();
+      formdata.append("image", file);
+
       let res = await axios.post(
         "http://localhost:4600/api/register",
         {
@@ -136,7 +109,10 @@ class SignUp extends Component {
           tagsArray: this.state.tagsArray,
 
           address: this.state.address,
-          subscribe: this.state.subscribe
+          subscribe: this.state.subscribe,
+          // data: formdata
+          // file: this.state.FirstName
+          image: this.state.file[0]
         },
 
         JSON.stringify(data),
@@ -196,7 +172,13 @@ class SignUp extends Component {
         <div className="row">
           <div className="col-md-5">
             <div className="form-group">{imgPreview}</div>
-            <input type="file" onChange={this.uploadSingleFile} alt="profile" />
+            <input
+              type="file"
+              id="image"
+              name="image"
+              onChange={this.uploadSingleFile}
+              alt="profile"
+            />
           </div>
 
           <div className="col-md-7 form-group">
@@ -298,42 +280,6 @@ class SignUp extends Component {
                 value={this.state.tags}
                 onChange={() => this.handleChange(this.state.tags)}
               /> */}
-
-              <input
-                type="text"
-                className="col-lg-8 form-control"
-                name="tags"
-                placeholder="tags"
-                value={this.state.tags}
-                onChange={this.onchangemethod}
-              />
-
-              <button
-                className="float-right"
-                type="button"
-                onClick={this.addinarray}
-              >
-                {" "}
-                Add
-              </button>
-              <section>
-                {this.state.tagsArray.map((data, index) => (
-                  <React.Fragment key={index}>
-                    <button
-                      type="button"
-                      className="btn btn-success btn-sm mr-1"
-                      key={data + index}
-                      onClick={() => {
-                        this.handletagmethod(data);
-                      }}
-                    >
-                      {data}
-                      <i className="fa fa-close"></i>
-                    </button>
-                    {/* <li>{data}</li> */}
-                  </React.Fragment>
-                ))}
-              </section>
 
               {/* <input
                 type="text"
