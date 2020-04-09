@@ -112,7 +112,7 @@ class SignUp extends Component {
           subscribe: this.state.subscribe,
           // data: formdata
           // file: this.state.FirstName
-          image: this.state.file[0]
+          image: this.state.file
         },
 
         JSON.stringify(data),
